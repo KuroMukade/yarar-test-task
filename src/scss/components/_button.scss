@@ -1,0 +1,51 @@
+@import '../variables';
+@import '../fonts';
+
+.btn {
+  border-radius: 2px;
+  font-family: $regular;
+  font-size: 14px;
+  outline: none;
+  background-color: $blue;
+  transition: all $duration ease-in;
+  cursor: pointer;
+
+  &-outline {
+    &-lightblue {
+      color: $blue;
+      padding: 7px 65px;
+      border: 1px solid $blue;
+      background-color: inherit;
+      &:hover {
+        background-color: $blue;
+        transition: all $duration ease-in;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-green {
+    background-color: $green;
+    padding: 7px 40px;
+    color: $white;
+    border: 1px solid $green;
+
+    &:hover {
+      background-color: inherit;
+      color: $green;
+    }
+  }
+
+  &-blue {
+    background-color: $blue;
+    padding: 7px 67px;
+    border: 1px solid $blue;
+    color: $white;
+    &:hover {
+      background-color: inherit;
+      transition: all $duration ease-in;
+      color: $blue;
+    }
+  }
+}

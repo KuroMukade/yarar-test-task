@@ -1,0 +1,13 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mail-load-icon">
+<path id="body" d="M8.33334 14.1666H3.33334V35.8333H36.6667V14.1666H31.6667" stroke="#8494A1" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="mailGroup">
+<path id="mail2" d="M31.6667 18.75L36.6667 15M8.33334 18.75L20 27.5L31.6667 18.75H8.33334ZM8.33334 18.75V5H31.6667V18.75H8.33334ZM8.33334 18.75L3.33334 15L8.33334 18.75Z" stroke="#8494A1" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="mail1" d="M31.6663 18.7501L36.6663 15.0001M8.33301 18.7501L19.9997 27.5001L31.6663 18.7501H8.33301ZM8.33301 18.7501V5.00012H31.6663V18.7501H8.33301ZM8.33301 18.7501L3.33301 15.0001L8.33301 18.7501Z" stroke="#8494A1" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrowGroup">
+<path id="arrow2" d="M20 20V10.8334M15.8333 15.8334L20 20L15.8333 15.8334ZM20 20L24.1667 15.8334L20 20Z" stroke="#8494A1" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="arrow1" d="M19.9997 20V10.8334M15.833 15.8334L19.9997 20L15.833 15.8334ZM19.9997 20L24.1663 15.8334L19.9997 20Z" stroke="#8494A1" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
