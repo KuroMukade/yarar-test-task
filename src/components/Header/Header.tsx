@@ -16,10 +16,6 @@ const Header = () => {
         <div className="header-logo">
           <img className="header-img" src={logo} alt="GoodSpring logo" />
         </div>
-        {/* <div className="header-language">
-          <p>RU</p>
-          <img className="dropdown-icon" src={dropdown} alt="всплывающее меню" />
-        </div> */}
           <Dropdown
             className="header-language"
             name="language"
