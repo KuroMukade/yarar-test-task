@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pbe/react-yandex-maps": "^1.2.2",
+    "@types/yandex-maps": "^2.1.29",
     "axios": "^1.2.5",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-geolocation": "^1.1.0",
     "sass": "^1.57.1",
     "scss": "^0.2.4"
   },
