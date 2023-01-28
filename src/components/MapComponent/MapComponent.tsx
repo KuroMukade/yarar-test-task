@@ -6,7 +6,7 @@ import useGeolocation from 'react-hook-geolocation';
 interface IYandexMapProps {
   width: string;
   height: string;
-  location: any;
+  location: number[];
 }
 
 const YandexMap: FC<IYandexMapProps> = ({ width, height, location }) => {

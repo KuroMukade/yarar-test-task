@@ -1,5 +1,5 @@
 import React from 'react';
-import YandexMap from '../MapComponent/Map';
+import YandexMap from '../MapComponent/MapComponent';
 import useGeolocation from 'react-hook-geolocation';
 
 const MapBoard = () => {  
