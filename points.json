@@ -5,8 +5,8 @@
       "name": "Kazan Arena",
       "address": "пр-т. Хусаина Ямашева, 115 А, Казань, Респ. Татарстан, 421001",
       "cityId": {
-          "name": "Kazan",
-          "id": "1"
+        "name": "Kazan",
+        "id": "1"
       }
     },
     {
@@ -14,8 +14,8 @@
       "name": "Rivera",
       "address": "ул. Фатыха Амирхана, 1, Казань, Респ. Татарстан, 420126",
       "cityId": {
-          "name": "Kazan",
-          "id": "1"
+        "name": "Kazan",
+        "id": "1"
       }
     },
     {
@@ -23,9 +23,18 @@
       "name": "Myasokombinat Kazanskiy",
       "address": "ул. Гвардейская, д, 45, помещение 1, Казань, Респ. Татарстан, 420073",
       "cityId": {
-          "name": "Kazan",
-          "id": "1"
+        "name": "Kazan",
+        "id": "1"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Red Square",
+      "address": "ул. Центральная, д 1, помещение 1, Москва",
+      "cityId": {
+        "name": "Moscow",
+        "id": "1"
       }
     }
-  ]  
+  ]
 }
