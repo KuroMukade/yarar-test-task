@@ -10,6 +10,7 @@ export type ICurrentPoint = {
     name: string;
     id: string;
   };
+  image?: string;
 };
 
 export interface IAllPoints {

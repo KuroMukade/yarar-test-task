@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import useGeolocation from 'react-hook-geolocation';
 
 import { YMaps, Map as YMap, Placemark, Clusterer } from 'react-yandex-maps';
 
@@ -23,14 +22,10 @@ export interface IPoints {
   points: IAllPoints;
 }
 
-const YandexMap: FC<IYandexMap> = ({
-  setYMap,
-  ymap,
-  city,
-  points,
-  onPointClickHandler,
-}) => {
-  const [locationCoordinates, setLocationCoordinates] = useState<Array<number>>([55.751574, 37.573856]);
+const YandexMap: FC<IYandexMap> = ({ setYMap, ymap, city, points, onPointClickHandler }) => {
+  const [locationCoordinates, setLocationCoordinates] = useState<Array<number>>([
+    55.751574, 37.573856,
+  ]);
   const [pointsData, setPointsData] = useState<IResponsePlacemarkData[]>([]);
 
   const getAndSetCurrentCoordinates = async (adress: string) => {
@@ -60,6 +55,7 @@ const YandexMap: FC<IYandexMap> = ({
               cityId: point.cityId,
               name: point.name,
               id: point.id,
+              image: point.image || undefined,
             }))
             .then((item) => setPlacemarksToState(item));
         }
@@ -95,7 +91,7 @@ const YandexMap: FC<IYandexMap> = ({
                   key={point.adress}
                   onClick={() => {
                     onPointClickHandler(pointsData, point.cityId.id);
-                    setLocationCoordinates(point.location)
+                    setLocationCoordinates(point.location);
                   }}
                 />
               );

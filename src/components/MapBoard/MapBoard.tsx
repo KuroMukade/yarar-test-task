@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import YandexMap from '../YandexMap/YandexMap';
 import { YMapsApi } from 'react-yandex-maps';
-import { getGeocodeByName, getYmapCoordinates } from '../../utils/yMapHelper';
+
 import useDebounce from '../../hooks/useDebounce';
 
 import { requestGet } from '../../api/requests';
@@ -16,15 +16,17 @@ interface ISidebar {
 
 const Sidebar = ({ isOpen, isLoading, cities, setIsOpen }: ISidebar) => {
   if (isLoading) return <div>Loading...</div>;
-  if (!cities) return null;
-  if (!isOpen) return null;
 
   return (
     <div className={isOpen ? 'sidebar active' : 'sidebar'}>
       <ul className="sidebar-items-container">
-        {cities.map((item) => (
+        {cities?.map((item) => (
           <li key={item.id} className="sidebar-item">
-            {item.name}
+            <img className="sidebar-item-image" src={item.image} alt="собака бедная" />
+            <div className="sidebar-item-text-container">
+              <p className="sidebar-item-text">{item.name}</p>
+              <p className="sidebar-item-city">{item.cityId.name}</p>
+            </div>
           </li>
         ))}
       </ul>
@@ -76,19 +78,9 @@ const MapBoard = () => {
   }, []);
 
   return (
-    <div className="map" style={{ padding: `30px` }}>
+    <div className="map">
       {loading && 'Loading...'}
       <div className="inputs-wrapper">
-        {/* 
-        <div className="input-data">
-          <input
-            value={adress}
-            onChange={(e) => handleAdressChange(e)}
-            placeholder={`Адрес`}
-            type="text"
-          />
-          <label>Город</label>
-        </div> */}
         <div className="input-data">
           <input
             value={city}
@@ -99,7 +91,6 @@ const MapBoard = () => {
           <label>Город</label>
         </div>
       </div>
-
       <div className="yandex-map">
         <YandexMap
           onPointClickHandler={onPointClick}
