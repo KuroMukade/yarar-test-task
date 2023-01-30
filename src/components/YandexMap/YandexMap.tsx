@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import useGeolocation from 'react-hook-geolocation';
 
-import { YMaps, Map as YMap, Placemark } from 'react-yandex-maps';
+import { YMaps, Map as YMap, Placemark, Clusterer } from 'react-yandex-maps';
 
 import { YMapsApi } from 'react-yandex-maps';
 import { getGeocodeByName, getYmapCoordinates } from '../../utils/yMapHelper';
@@ -11,8 +11,8 @@ interface IYandexMap {
   ymap: YMapsApi | null;
   setYMap(ymap: YMapsApi | null): void;
   city: string;
-  center: any;
   points: Array<ICurrentPoint>;
+  onPointClickHandler: (point: ICurrentPoint[], id: string) => void;
 }
 
 interface IResponsePlacemarkData extends ICurrentPoint {
@@ -23,8 +23,14 @@ export interface IPoints {
   points: IAllPoints;
 }
 
-const YandexMap: FC<IYandexMap> = ({ setYMap, center, ymap, city, points }) => {
-  const [locationCoordinates, setLocationCoordinates] = useState();
+const YandexMap: FC<IYandexMap> = ({
+  setYMap,
+  ymap,
+  city,
+  points,
+  onPointClickHandler,
+}) => {
+  const [locationCoordinates, setLocationCoordinates] = useState<Array<number>>([55.751574, 37.573856]);
   const [pointsData, setPointsData] = useState<IResponsePlacemarkData[]>([]);
 
   const getAndSetCurrentCoordinates = async (adress: string) => {
@@ -67,29 +73,34 @@ const YandexMap: FC<IYandexMap> = ({ setYMap, center, ymap, city, points }) => {
     }
   }, [ymap, city]);
 
-  console.log(pointsData);
-  console.log(ymap)
-
   return (
-    <YMaps query={{ apikey: `${import.meta.env.VITE_APP_MAPS_KEY}` }}>
+    <YMaps query={{ apikey: import.meta.env.VITE_APP_MAPS_KEY }}>
       <YMap
         modules={['geocode']}
         width={`100%`}
-        height={`170px`}
-        state={{ center: locationCoordinates || [55.751574, 37.573856], zoom: 12 }}
+        height={`400px`}
+        state={{ center: locationCoordinates, zoom: 12 }}
         onLoad={(ymap) => setYMap(ymap)}>
-        {pointsData.length > 0 &&
-          pointsData.map((point) => {
-            console.log(point)
-            return (
-              <Placemark
-                options={{ preset: 'islands#circleIcon', iconColor: '#0EC261' }}
-                geometry={point.location}
-                key={point.adress}
-                onClick={() => console.log(point)}
-              />
-            );
-          })}
+        <Clusterer
+          options={{
+            preset: 'islands#invertedGreenClusterIcons',
+            groupByCoordinates: false,
+          }}>
+          {pointsData.length > 0 &&
+            pointsData.map((point) => {
+              return (
+                <Placemark
+                  options={{ preset: 'islands#circleIcon', iconColor: '#0EC261' }}
+                  geometry={point.location}
+                  key={point.adress}
+                  onClick={() => {
+                    onPointClickHandler(pointsData, point.cityId.id);
+                    setLocationCoordinates(point.location)
+                  }}
+                />
+              );
+            })}
+        </Clusterer>
       </YMap>
     </YMaps>
   );

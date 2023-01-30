@@ -464,9 +464,11 @@ header {
 }
 
 .map-container {
+  position: relative;
   padding: 60px;
   font-family: 'Lato Regular';
   font-size: 26px;
+  position: relative;
 
   .map {
     margin-top: 48px;
@@ -476,11 +478,97 @@ header {
   }
 }
 
+.map {
+  position: relative;
 
-@media (max-width: 1300px) {
-  // .dashboard-body {
-  //   grid-template-columns: repeat(3, 275px);
-  // }
+  .inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .input-data {
+      height: 58px;
+      width: 100%;
+      position: relative;
+
+      label {
+        font-family: 'Lato Bold';
+        font-size: 12px;
+      }
+
+      input {
+        outline: none;
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid silver;
+        font-size: 20px;
+
+        &:focus ~ label {
+          font-family: 'Lato Bold';
+          transform: translateY(-30px);
+          font-size: 15px;
+        }
+      }
+
+      label {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        color: #82949f;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+    }
+
+    .map-input {
+      border: none;
+      border-bottom: 2px solid black;
+    }
+  }
+
+  .yandex-map {
+    margin-top: 48px;
+  }
+}
+
+.sidebar {
+  transition: 0.4s all ease-in-out;
+  position: absolute;
+  top: 13%;
+  border: 2px solid #82949f;
+  height: 400px;
+  background-color: white;
+  left: 0;
+  padding: 15px 30px;
+  display: none;
+  font-family: 'Lato Medium';
+  font-size: 18px;
+
+  .sidebar-item {
+    list-style-type: none;
+  }
+
+  .sidebar-items-container {
+    gap: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  &-close {
+    color: #82949f;
+    transition: 0.2s ease;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 1240px) {
@@ -558,30 +646,30 @@ header {
     justify-content: center;
     align-items: center;
 
-      .navigation-wrapper {
-        padding: 10px 5px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: 100vw;
-        margin: 0;
-        height: 100px;
-        font-size: 10px;
-        li {
-          a {
-            margin-left: 4px;
-          }
-          svg, img {
-            width: 20px;
-            height: 20px;
-          }
+    .navigation-wrapper {
+      padding: 10px 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100vw;
+      margin: 0;
+      height: 100px;
+      font-size: 10px;
+      li {
+        a {
+          margin-left: 4px;
         }
-   
+        svg,
+        img {
+          width: 20px;
+          height: 20px;
+        }
       }
-      .navigation-card {
-        display: none;
-      }
+    }
+    .navigation-card {
+      display: none;
+    }
   }
 
   header {
