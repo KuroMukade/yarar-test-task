@@ -2,9 +2,10 @@ import React from 'react';
 
 import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
+import MapBoard from './components/MapBoard';
 
 import './scss/app.scss';
-import MapBoard from './components/MapBoard/MapBoard';
+
 
 function App() {
   return (

@@ -9,8 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pbe/react-yandex-maps": "^1.2.2",
     "axios": "^1.2.5",
+    "classnames": "^2.3.2",
+    "json-server": "^0.17.1",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
