@@ -38,13 +38,26 @@
   }
 
   &-blue {
+    transition: all $duration ease-in;
     background-color: $blue;
     padding: 7px 67px;
     border: 1px solid $blue;
     color: $white;
+
+    &:disabled {
+      background-color: #79C8FF;
+      border-color: #79C8FF;
+    }
+
+    &:disabled:hover {
+      cursor: not-allowed;
+
+    }
+
     &:hover {
       background-color: inherit;
       transition: all $duration ease-in;
+      cursor: pointer;
       color: $blue;
     }
   }

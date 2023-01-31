@@ -1,5 +1,5 @@
 export interface IPoints extends IAllPoints {
-  // points: IAllPoints
+  points: IAllPoints
 }
 
 export type ICurrentPoint = {
