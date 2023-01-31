@@ -1,47 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import YandexMap from '../YandexMap/YandexMap';
+
 import { YMapsApi } from 'react-yandex-maps';
+
+import YandexMap from '../YandexMap/YandexMap';
+import Sidebar from '../Sidebar/Sidebar';
+import Input from '../Input/Input';
 
 import useDebounce from '../../hooks/useDebounce';
 
-import { requestGet } from '../../api/requests';
+import { postToServer, requestGet } from '../../api/requests';
 import { ICurrentPoint } from '../types/points';
-
-interface ISidebar {
-  isOpen: boolean;
-  isLoading: boolean;
-  setIsOpen: (flag: boolean) => void;
-  cities: ICurrentPoint[] | null;
-}
-
-const Sidebar = ({ isOpen, isLoading, cities, setIsOpen }: ISidebar) => {
-  if (isLoading) return <div>Loading...</div>;
-  return (
-    <div className={isOpen ? 'sidebar active' : 'sidebar'}>
-      <ul className="sidebar-items-container">
-        {cities?.map((item) => (
-          <li key={item.id} className="sidebar-item">
-            <img className="sidebar-item-image" src={item.image} alt="собака бедная" />
-            <div className="sidebar-item-text-container">
-              <p className="sidebar-item-text">{item.name}</p>
-              <p className="sidebar-item-city">{item.cityId[0].name}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="sidebar-close" onClick={() => setIsOpen(false)}>
-        X
-      </div>
-    </div>
-  );
-};
+import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
+import { getAddress, getGeocodeByName } from '../../utils/yMapHelper';
 
 const MapBoard = () => {
-  const [ymap, setYmap] = useState<YMapsApi | null>(null);
+  const [ymap, setYMap] = useState<YMapsApi | null>(null);
 
   const [adress, setAdress] = useState('');
-  const [city, setCity] = useState('');
+  const [convertedAdress, setConvertedAdress] = useState('');
 
+  const [city, setCity] = useState('');
   const [points, setPoints] = useState<any>();
 
   const [allCities, setAllCities] = useState<ICurrentPoint[] | null>(null);
@@ -49,8 +27,10 @@ const MapBoard = () => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const debouncedCity = useDebounce(city, 500);
-  const debouncedAdress = useDebounce(adress, 500);
+  const debouncedCity = useDebounce(city, 1500);
+  const debouncedAdress = useDebounce(convertedAdress, 1500);
+
+  const [currentLocation, setCurrentLocation] = useState<Array<number>>();
 
   const handleAdressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAdress(e.target.value);
@@ -73,41 +53,64 @@ const MapBoard = () => {
   };
 
   useEffect(() => {
+    if (city && adress) { 
+      getAddress(ymap, adress).then((res) => setConvertedAdress(res))
+    }
+
+  }, [ymap, adress, city]);
+  
+  useEffect(() => {
     getPoints().then((data) => setPoints(data));
   }, []);
+
+  const buttonClickHandler = () => {
+    if (currentLocation) {
+      postToServer(currentLocation);
+    }
+  };
+
+
 
   return (
     <div className="map">
       {loading && 'Loading...'}
-      <div className="inputs-wrapper">
-        <div className="input-data">
-          <input
-            value={adress}
-            onChange={(e) => handleAdressChange(e)}
-            placeholder={`Адрес`}
-            type="text"
-          />
-          <label>Адрес</label>
+      <div className="map-wrapper">
+        <div className="inputs-wrapper">
+          <div className="input-data">
+            <Input
+              value={adress}
+              onChange={(e) => handleAdressChange(e)}
+              placeholder={`Адрес`}
+              type="text"
+            />
+            <label>Адрес</label>
+          </div>
+          <div className="input-data">
+            <Input
+              value={city}
+              onChange={(e) => handleCityChange(e)}
+              placeholder={`Город`}
+              type="text"
+            />
+            <label>Город</label>
+          </div>
         </div>
-        <div className="input-data">
-          <input
-            value={city}
-            onChange={(e) => handleCityChange(e)}
-            placeholder={`Город`}
-            type="text"
-          />
-          <label>Город</label>
+        <div className="yandex-map">
+          {/* <YandexMap
+            onPointClickHandler={onPointClick}
+            points={points?.data}
+            setYMap={setYmap}
+            ymap={ymap}
+            city={debouncedCity}
+            adress={debouncedAdress}
+          /> */}
         </div>
-      </div>
-      <div className="yandex-map">
-        <YandexMap
-          onPointClickHandler={onPointClick}
-          points={points?.data}
-          setYMap={setYmap}
-          ymap={ymap}
-          city={debouncedCity}
-          adress={debouncedAdress}
-        />
+        <YandexMapAdd setCurrentLocation={setCurrentLocation} ymap={ymap} setYMap={setYMap} city={debouncedCity} adress={debouncedAdress} />
+        <div className="map-btn-wrapper">
+          <button disabled={currentLocation === undefined} onClick={buttonClickHandler} className="map-btn btn-blue">
+            Добавить
+          </button>
+        </div>
       </div>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} cities={allCities} isLoading={loading} />
     </div>

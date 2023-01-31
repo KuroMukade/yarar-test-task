@@ -66,7 +66,7 @@ const YandexMap: FC<IYandexMap> = ({
               cityId: point.cityId,
               name: point.name,
               id: point.id,
-              image: point.image || undefined,
+              image: point?.image,
             }))
             .then((item) => setPlacemarksToState(item));
         }
