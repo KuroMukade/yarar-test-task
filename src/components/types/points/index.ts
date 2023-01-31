@@ -6,10 +6,12 @@ export type ICurrentPoint = {
   id: string;
   name: string;
   adress: string;
-  cityId: {
-    name: string;
-    id: string;
-  };
+  cityId: [
+    {
+      name: string;
+      id: string;
+    },
+  ];
   image?: string;
 };
 
