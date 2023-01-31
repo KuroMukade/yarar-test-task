@@ -16,7 +16,6 @@ interface ISidebar {
 
 const Sidebar = ({ isOpen, isLoading, cities, setIsOpen }: ISidebar) => {
   if (isLoading) return <div>Loading...</div>;
-
   return (
     <div className={isOpen ? 'sidebar active' : 'sidebar'}>
       <ul className="sidebar-items-container">
@@ -25,7 +24,7 @@ const Sidebar = ({ isOpen, isLoading, cities, setIsOpen }: ISidebar) => {
             <img className="sidebar-item-image" src={item.image} alt="собака бедная" />
             <div className="sidebar-item-text-container">
               <p className="sidebar-item-text">{item.name}</p>
-              <p className="sidebar-item-city">{item.cityId.name}</p>
+              <p className="sidebar-item-city">{item.cityId[0].name}</p>
             </div>
           </li>
         ))}
@@ -43,7 +42,6 @@ const MapBoard = () => {
   const [adress, setAdress] = useState('');
   const [city, setCity] = useState('');
 
-  const [cityCoordinates, setCityCoordinates] = useState<Array<number | null>>();
   const [points, setPoints] = useState<any>();
 
   const [allCities, setAllCities] = useState<ICurrentPoint[] | null>(null);
@@ -52,6 +50,7 @@ const MapBoard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const debouncedCity = useDebounce(city, 500);
+  const debouncedAdress = useDebounce(adress, 500);
 
   const handleAdressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAdress(e.target.value);
@@ -68,7 +67,7 @@ const MapBoard = () => {
   const onPointClick = (points: ICurrentPoint[], id: string) => {
     setIsOpen(true);
     setLoading(true);
-    const cityPoints = points.filter((item) => item.cityId.id === id);
+    const cityPoints = points.filter((item) => item.cityId[0].id === id);
     setAllCities(cityPoints);
     setLoading(false);
   };
@@ -81,6 +80,15 @@ const MapBoard = () => {
     <div className="map">
       {loading && 'Loading...'}
       <div className="inputs-wrapper">
+        <div className="input-data">
+          <input
+            value={adress}
+            onChange={(e) => handleAdressChange(e)}
+            placeholder={`Адрес`}
+            type="text"
+          />
+          <label>Адрес</label>
+        </div>
         <div className="input-data">
           <input
             value={city}
@@ -98,6 +106,7 @@ const MapBoard = () => {
           setYMap={setYmap}
           ymap={ymap}
           city={debouncedCity}
+          adress={debouncedAdress}
         />
       </div>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} cities={allCities} isLoading={loading} />

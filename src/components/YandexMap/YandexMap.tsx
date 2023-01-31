@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { YMaps, Map as YMap, Placemark, Clusterer } from 'react-yandex-maps';
 
@@ -10,6 +10,7 @@ interface IYandexMap {
   ymap: YMapsApi | null;
   setYMap(ymap: YMapsApi | null): void;
   city: string;
+  adress: string;
   points: Array<ICurrentPoint>;
   onPointClickHandler: (point: ICurrentPoint[], id: string) => void;
 }
@@ -22,15 +23,25 @@ export interface IPoints {
   points: IAllPoints;
 }
 
-const YandexMap: FC<IYandexMap> = ({ setYMap, ymap, city, points, onPointClickHandler }) => {
+const YandexMap: FC<IYandexMap> = ({
+  setYMap,
+  ymap,
+  city,
+  adress,
+  points,
+  onPointClickHandler,
+}) => {
   const [locationCoordinates, setLocationCoordinates] = useState<Array<number>>([
     55.751574, 37.573856,
   ]);
   const [pointsData, setPointsData] = useState<IResponsePlacemarkData[]>([]);
 
-  const getAndSetCurrentCoordinates = async (adress: string) => {
+  const getAndSetCurrentCoordinates = async (
+    city: string | null = null,
+    adress: string | null = null,
+  ) => {
     if (ymap) {
-      const res = await ymap.geocode(adress);
+      const res = await getGeocodeByName({ ymap: ymap, adress: adress, city: city });
       setLocationCoordinates(getYmapCoordinates(res));
     }
   };
@@ -45,7 +56,7 @@ const YandexMap: FC<IYandexMap> = ({ setYMap, ymap, city, points, onPointClickHa
       points.map((point) => {
         if (point.cityId && point.adress) {
           getGeocodeByName({
-            city: point.cityId.name,
+            city: point.cityId[0].name,
             adress: point.adress,
             ymap: ymap,
           })
@@ -64,10 +75,21 @@ const YandexMap: FC<IYandexMap> = ({ setYMap, ymap, city, points, onPointClickHa
   }, [ymap, points]);
 
   useEffect(() => {
-    if (ymap && city) {
-      getAndSetCurrentCoordinates(`${city}`);
+    if (ymap) {
+      if (adress && city) {
+        getAndSetCurrentCoordinates(city, adress);
+        return;
+      }
+      if (adress) {
+        getAndSetCurrentCoordinates(adress);
+        return
+      }
+      if (city) {
+        getAndSetCurrentCoordinates(city);
+        return
+      }
     }
-  }, [ymap, city]);
+  }, [ymap, city, adress]);
 
   return (
     <YMaps query={{ apikey: import.meta.env.VITE_APP_MAPS_KEY }}>
@@ -83,14 +105,14 @@ const YandexMap: FC<IYandexMap> = ({ setYMap, ymap, city, points, onPointClickHa
             groupByCoordinates: false,
           }}>
           {pointsData.length > 0 &&
-            pointsData.map((point) => {
+            pointsData.map((point, index) => {
               return (
                 <Placemark
                   options={{ preset: 'islands#circleIcon', iconColor: '#0EC261' }}
                   geometry={point.location}
-                  key={point.adress}
+                  key={index}
                   onClick={() => {
-                    onPointClickHandler(pointsData, point.cityId.id);
+                    onPointClickHandler(pointsData, point.cityId[0].id);
                     setLocationCoordinates(point.location);
                   }}
                 />
