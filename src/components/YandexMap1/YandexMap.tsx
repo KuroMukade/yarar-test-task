@@ -6,9 +6,11 @@ import { YMapsApi } from 'react-yandex-maps';
 import { getGeocodeByName, getYmapCoordinates } from '../../utils/yMapHelper';
 import { IAllPoints, ICurrentPoint } from '../types/points';
 
+import { YMapType } from '../types/ymap';
+
 interface IYandexMap {
-  ymap: YMapsApi | null;
-  setYMap(ymap: YMapsApi | null): void;
+  ymap: YMapType;
+  setYMap(ymap: YMapType): void;
   city: string;
   adress: string;
   points: Array<ICurrentPoint>;

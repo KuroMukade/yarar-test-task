@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { YMapsApi } from 'react-yandex-maps';
 
-import Sidebar from '../Sidebar/Sidebar';
 import InputField from '../InputField/InputField';
 
 import useDebounce from '../../hooks/useDebounce';
@@ -12,8 +11,10 @@ import { ICurrentPoint } from '../types/points';
 import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
 import { getAddress } from '../../utils/yMapHelper';
 
+import type { YMapType } from '../types/ymap';
+
 const MapBoard = () => {
-  const [ymap, setYMap] = useState<YMapsApi | null>(null);
+  const [ymap, setYMap] = useState<YMapType>(null);
 
   const [adress, setAdress] = useState('');
   const [convertedAdress, setConvertedAdress] = useState('');

@@ -2,9 +2,11 @@ import React, { FC, useState, useEffect } from 'react';
 import { YMaps, Map as YMap, Placemark, YMapsApi } from 'react-yandex-maps';
 import { getGeocodeByName, getYmapCoordinates } from '../../utils/yMapHelper';
 
+import { YMapType } from '../types/ymap';
+
 interface IYandexMapAdd {
-  ymap: YMapsApi | null;
-  setYMap(ymap: YMapsApi | null): void;
+  ymap: YMapType;
+  setYMap(ymap: YMapType): void;
   city: string;
   adress: string;
   setCurrentLocation(location: Array<number>): void;
