@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/components/YandexMap/YandexMap.tsx"],
+  "include": ["src", "src/components/YandexMap1/YandexMap.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

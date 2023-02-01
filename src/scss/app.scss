@@ -17,6 +17,13 @@ h3 {
   font-family: $bold;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 16px;
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto 0 auto;
@@ -24,6 +31,10 @@ h3 {
 
 #root {
   font-size: 14px;
+}
+
+body {
+  font-family: 'Lato Regular';
 }
 
 .wrapper {
@@ -599,6 +610,85 @@ header {
     cursor: pointer;
   }
 }
+
+.event-wrapper {
+  width: 100vw;
+  border-bottom: 1px solid $gray;
+
+  .event-header {
+  
+    .event-header__navigation {
+      display: flex;
+      margin-right: auto;
+    
+      .event-btn {
+        padding: 10px 15px;
+        display: flex;
+        transition: $duration;
+        &:hover {
+          svg {
+            path {
+              transition: $duration;
+              stroke: $blue;
+            }
+          }
+        }
+        svg {
+          margin-left: 15px;
+        }
+      }
+    
+      .event-header__dropdown {
+        &-society {
+          font-family: 'Lato Semibold';
+          font-size: 16px;
+          cursor: pointer;
+          color: $blue;
+          outline: none;
+          border: none;
+          margin-left: 46px;
+          padding: 0;
+        }
+        &-project {
+          font-family: 'Lato Semibold';
+          font-size: 16px;
+          cursor: pointer;
+          color: $blue;
+          outline: none;
+          border: none;
+          margin-left: 54px;
+          padding: 0;
+        }
+      }
+    }
+    
+    .event-header__auth {
+      display: flex;
+    
+      &-login {
+        font-size: 16px;
+        color: $blue;
+        font-family: 'Lato Semibold';
+        outline: none;
+        border: none;
+        background-color: inherit;
+        cursor: pointer;
+    
+      }
+    
+      &-registration {
+        margin-left: 16px;
+        font-size: 16px;
+        color: $blue;
+        border-radius: 3px;
+        font-family: 'Lato Semibold';
+        padding: 9px 10px;
+      }
+    }
+  }
+}
+
+
 
 @media (max-width: 1240px) {
   .profile-fill {

@@ -19,10 +19,6 @@ interface IResponsePlacemarkData extends ICurrentPoint {
   location: Array<number>;
 }
 
-export interface IPoints {
-  points: IAllPoints;
-}
-
 const YandexMap: FC<IYandexMap> = ({
   setYMap,
   ymap,

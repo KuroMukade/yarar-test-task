@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { YMapsApi } from 'react-yandex-maps';
 
-import YandexMap from '../YandexMap/YandexMap';
 import Sidebar from '../Sidebar/Sidebar';
-import Input from '../Input/Input';
 import InputField from '../InputField/InputField';
 
 import useDebounce from '../../hooks/useDebounce';
@@ -12,7 +10,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { postToServer, requestGet } from '../../api/requests';
 import { ICurrentPoint } from '../types/points';
 import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
-import { getAddress, getGeocodeByName } from '../../utils/yMapHelper';
+import { getAddress } from '../../utils/yMapHelper';
 
 const MapBoard = () => {
   const [ymap, setYMap] = useState<YMapsApi | null>(null);
@@ -126,7 +124,6 @@ const MapBoard = () => {
           </button>
         </div>
       </div>
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} cities={allCities} isLoading={loading} />
     </div>
   );
 };
