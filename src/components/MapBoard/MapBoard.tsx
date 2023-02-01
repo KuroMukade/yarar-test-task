@@ -5,6 +5,7 @@ import { YMapsApi } from 'react-yandex-maps';
 import YandexMap from '../YandexMap/YandexMap';
 import Sidebar from '../Sidebar/Sidebar';
 import Input from '../Input/Input';
+import InputField from '../InputField/InputField';
 
 import useDebounce from '../../hooks/useDebounce';
 
@@ -53,12 +54,11 @@ const MapBoard = () => {
   };
 
   useEffect(() => {
-    if (city && adress) { 
-      getAddress(ymap, adress).then((res) => setConvertedAdress(res))
+    if (city && adress) {
+      getAddress(ymap, adress).then((res) => setConvertedAdress(res));
     }
-
   }, [ymap, adress, city]);
-  
+
   useEffect(() => {
     getPoints().then((data) => setPoints(data));
   }, []);
@@ -69,18 +69,14 @@ const MapBoard = () => {
     }
   };
 
-
-
   return (
     <div className="map">
       {loading && 'Loading...'}
       <div className="map-wrapper">
         <div className="inputs-wrapper">
-          <div className="input-data">
-            <Input
+          {/* <Input
               value={adress}
               onChange={(e) => handleAdressChange(e)}
-              placeholder={`Адрес`}
               type="text"
             />
             <label>Адрес</label>
@@ -89,11 +85,20 @@ const MapBoard = () => {
             <Input
               value={city}
               onChange={(e) => handleCityChange(e)}
-              placeholder={`Город`}
               type="text"
-            />
-            <label>Город</label>
-          </div>
+            /> */}
+          <InputField
+            type={'text'}
+            value={adress}
+            onChange={(e) => handleAdressChange(e)}
+            text="Адрес"
+          />
+          <InputField
+            type={'text'}
+            value={city}
+            onChange={(e) => handleCityChange(e)}
+            text="Город"
+          />
         </div>
         <div className="yandex-map">
           {/* <YandexMap
@@ -105,9 +110,18 @@ const MapBoard = () => {
             adress={debouncedAdress}
           /> */}
         </div>
-        <YandexMapAdd setCurrentLocation={setCurrentLocation} ymap={ymap} setYMap={setYMap} city={debouncedCity} adress={debouncedAdress} />
+        <YandexMapAdd
+          setCurrentLocation={setCurrentLocation}
+          ymap={ymap}
+          setYMap={setYMap}
+          city={debouncedCity}
+          adress={debouncedAdress}
+        />
         <div className="map-btn-wrapper">
-          <button disabled={currentLocation === undefined} onClick={buttonClickHandler} className="map-btn btn-blue">
+          <button
+            disabled={currentLocation === undefined}
+            onClick={buttonClickHandler}
+            className="map-btn btn-blue">
             Добавить
           </button>
         </div>

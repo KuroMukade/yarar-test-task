@@ -5,8 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './scss/app.scss';
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
+  <BrowserRouter basename='/yarar'>
     <App />
   </BrowserRouter>,
 );
