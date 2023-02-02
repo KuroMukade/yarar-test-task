@@ -4,7 +4,7 @@ import { YMaps, Map as YMap, Placemark, Clusterer } from 'react-yandex-maps';
 
 import { YMapsApi } from 'react-yandex-maps';
 import { getGeocodeByName, getYmapCoordinates } from '../../utils/yMapHelper';
-import { IAllPoints, ICurrentPoint } from '../types/points';
+import { ICurrentPoint } from '../types/points';
 
 import { YMapType } from '../types/ymap';
 
@@ -80,11 +80,11 @@ const YandexMap: FC<IYandexMap> = ({
       }
       if (adress) {
         getAndSetCurrentCoordinates(adress);
-        return
+        return;
       }
       if (city) {
         getAndSetCurrentCoordinates(city);
-        return
+        return;
       }
     }
   }, [ymap, city, adress]);

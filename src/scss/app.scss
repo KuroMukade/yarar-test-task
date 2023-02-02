@@ -34,7 +34,10 @@ a {
 }
 
 body {
+  overflow-x: hidden;
   font-family: 'Lato Regular';
+  overflow-y: hidden;
+  width: 100vw;
 }
 
 .wrapper {
@@ -545,13 +548,6 @@ header {
 }
 
 .sidebar {
-  transform: translateX(-100%);
-  transition: all 0.4s ease-in-out;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 35%;
-  height: 100%;
   background-color: white;
   display: block;
   font-family: 'Lato Medium';
@@ -612,14 +608,17 @@ header {
 }
 
 .event-wrapper {
-  width: 100vw;
   border-bottom: 1px solid $gray;
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background-color: #fff;
 
   .event-header {
     .event-header__navigation {
       display: flex;
       margin-right: auto;
-    
+
       .event-btn {
         padding: 10px 15px;
         display: flex;
@@ -636,7 +635,7 @@ header {
           margin-left: 15px;
         }
       }
-    
+
       .event-header__dropdown {
         &-society {
           font-family: 'Lato Semibold';
@@ -660,10 +659,10 @@ header {
         }
       }
     }
-    
+
     .event-header__auth {
       display: flex;
-    
+
       &-login {
         font-size: 16px;
         color: $blue;
@@ -672,9 +671,8 @@ header {
         border: none;
         background-color: inherit;
         cursor: pointer;
-    
       }
-    
+
       &-registration {
         margin-left: 16px;
         font-size: 16px;
@@ -687,7 +685,55 @@ header {
   }
 }
 
+.events-map {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
 
+  .events-map-sidebar {
+    width: 50%;
+  }
+
+  .events-map-sidebar-options {
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $gray;
+
+    .events-map-sidebar__navigation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .variants {
+        font-size: 18px;
+        font-family: 'Lato Semibold';
+      }
+    }
+
+    .events-map-filtration {
+      padding: 3px 88px 3px 14px;
+      font-family: 'Lato Semibold';
+      text-align: left;
+      cursor: pointer;
+      border-color: #82949F;
+      background-color: inherit;
+      outline: none;
+      border-radius: 2px;
+    }
+
+    .events-toggler {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 33px;
+      &-text {
+        margin-left: 10px;
+        font-family: 'Lato Semibold';
+        font-size: 14px;
+      }
+    }
+  }
+}
 
 @media (max-width: 1240px) {
   .profile-fill {

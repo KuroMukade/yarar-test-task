@@ -73,19 +73,6 @@ const MapBoard = () => {
       {loading && 'Loading...'}
       <div className="map-wrapper">
         <div className="inputs-wrapper">
-          {/* <Input
-              value={adress}
-              onChange={(e) => handleAdressChange(e)}
-              type="text"
-            />
-            <label>Адрес</label>
-          </div>
-          <div className="input-data">
-            <Input
-              value={city}
-              onChange={(e) => handleCityChange(e)}
-              type="text"
-            /> */}
           <InputField
             type={'text'}
             value={adress}
@@ -100,14 +87,6 @@ const MapBoard = () => {
           />
         </div>
         <div className="yandex-map">
-          {/* <YandexMap
-            onPointClickHandler={onPointClick}
-            points={points?.data}
-            setYMap={setYmap}
-            ymap={ymap}
-            city={debouncedCity}
-            adress={debouncedAdress}
-          /> */}
         </div>
         <YandexMapAdd
           setCurrentLocation={setCurrentLocation}

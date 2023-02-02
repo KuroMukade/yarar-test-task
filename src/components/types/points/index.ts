@@ -17,5 +17,5 @@ export type ICurrentPoint = {
 
 export interface IAllPoints {
   data: Array<ICurrentPoint> | null;
-  error: string | null;
+  error?: string | null;
 }

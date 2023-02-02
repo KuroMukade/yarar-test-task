@@ -30,7 +30,6 @@ const YandexMapAdd: FC<IYandexMapAdd> = ({ ymap, setYMap, city, adress, setCurre
   }, [city, adress]);
 
   useEffect(() => {
-    console.log(pointLocation)
     if (pointLocation) {
       setCurrentLocation(pointLocation);
     }
