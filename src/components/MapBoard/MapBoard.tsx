@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-import { YMapsApi } from 'react-yandex-maps';
-
+import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
 import InputField from '../InputField/InputField';
-
 import useDebounce from '../../hooks/useDebounce';
 
-import { postToServer, requestGet } from '../../api/requests';
-import { ICurrentPoint } from '../types/points';
-import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
+import { postToServer } from '../../api/requests';
 import { getAddress } from '../../utils/yMapHelper';
 
 import type { YMapType } from '../types/ymap';
+
+export type CurrentLocation = { city: Array<number>, adress: Array<number> }
+
 
 const MapBoard = () => {
   const [ymap, setYMap] = useState<YMapType>(null);
@@ -20,17 +19,11 @@ const MapBoard = () => {
   const [convertedAdress, setConvertedAdress] = useState('');
 
   const [city, setCity] = useState('');
-  const [points, setPoints] = useState<any>();
-
-  const [allCities, setAllCities] = useState<ICurrentPoint[] | null>(null);
-
-  const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   const debouncedCity = useDebounce(city, 1500);
   const debouncedAdress = useDebounce(convertedAdress, 1500);
 
-  const [currentLocation, setCurrentLocation] = useState<Array<number>>();
+  const [currentLocation, setCurrentLocation] = useState<CurrentLocation>();
 
   const handleAdressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAdress(e.target.value);
@@ -40,27 +33,11 @@ const MapBoard = () => {
     setCity(e.target.value);
   };
 
-  const getPoints = async () => {
-    return await requestGet('/points');
-  };
-
-  const onPointClick = (points: ICurrentPoint[], id: string) => {
-    setIsOpen(true);
-    setLoading(true);
-    const cityPoints = points.filter((item) => item.cityId[0].id === id);
-    setAllCities(cityPoints);
-    setLoading(false);
-  };
-
   useEffect(() => {
     if (city && adress) {
       getAddress(ymap, adress).then((res) => setConvertedAdress(res));
     }
   }, [ymap, adress, city]);
-
-  useEffect(() => {
-    getPoints().then((data) => setPoints(data));
-  }, []);
 
   const buttonClickHandler = () => {
     if (currentLocation) {
@@ -70,7 +47,6 @@ const MapBoard = () => {
 
   return (
     <div className="map">
-      {loading && 'Loading...'}
       <div className="map-wrapper">
         <div className="inputs-wrapper">
           <InputField
@@ -85,8 +61,6 @@ const MapBoard = () => {
             onChange={(e) => handleCityChange(e)}
             text="Город"
           />
-        </div>
-        <div className="yandex-map">
         </div>
         <YandexMapAdd
           setCurrentLocation={setCurrentLocation}
