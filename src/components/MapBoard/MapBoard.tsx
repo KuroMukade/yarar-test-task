@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { YMapsApi } from 'react-yandex-maps';
 
-import YandexMap from '../YandexMap/YandexMap';
-import Sidebar from '../Sidebar/Sidebar';
-import Input from '../Input/Input';
 import InputField from '../InputField/InputField';
 
 import useDebounce from '../../hooks/useDebounce';
@@ -12,10 +9,12 @@ import useDebounce from '../../hooks/useDebounce';
 import { postToServer, requestGet } from '../../api/requests';
 import { ICurrentPoint } from '../types/points';
 import YandexMapAdd from '../YandexMapAdd/YandexMapAdd';
-import { getAddress, getGeocodeByName } from '../../utils/yMapHelper';
+import { getAddress } from '../../utils/yMapHelper';
+
+import type { YMapType } from '../types/ymap';
 
 const MapBoard = () => {
-  const [ymap, setYMap] = useState<YMapsApi | null>(null);
+  const [ymap, setYMap] = useState<YMapType>(null);
 
   const [adress, setAdress] = useState('');
   const [convertedAdress, setConvertedAdress] = useState('');
@@ -74,19 +73,6 @@ const MapBoard = () => {
       {loading && 'Loading...'}
       <div className="map-wrapper">
         <div className="inputs-wrapper">
-          {/* <Input
-              value={adress}
-              onChange={(e) => handleAdressChange(e)}
-              type="text"
-            />
-            <label>Адрес</label>
-          </div>
-          <div className="input-data">
-            <Input
-              value={city}
-              onChange={(e) => handleCityChange(e)}
-              type="text"
-            /> */}
           <InputField
             type={'text'}
             value={adress}
@@ -101,14 +87,6 @@ const MapBoard = () => {
           />
         </div>
         <div className="yandex-map">
-          {/* <YandexMap
-            onPointClickHandler={onPointClick}
-            points={points?.data}
-            setYMap={setYmap}
-            ymap={ymap}
-            city={debouncedCity}
-            adress={debouncedAdress}
-          /> */}
         </div>
         <YandexMapAdd
           setCurrentLocation={setCurrentLocation}
@@ -126,7 +104,6 @@ const MapBoard = () => {
           </button>
         </div>
       </div>
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} cities={allCities} isLoading={loading} />
     </div>
   );
 };

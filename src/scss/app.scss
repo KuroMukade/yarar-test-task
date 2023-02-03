@@ -17,6 +17,13 @@ h3 {
   font-family: $bold;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 16px;
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto 0 auto;
@@ -24,6 +31,13 @@ h3 {
 
 #root {
   font-size: 14px;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: 'Lato Regular';
+  overflow-y: hidden;
+  width: 100vw;
 }
 
 .wrapper {
@@ -534,13 +548,6 @@ header {
 }
 
 .sidebar {
-  transform: translateX(-100%);
-  transition: all 0.4s ease-in-out;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 35%;
-  height: 100%;
   background-color: white;
   display: block;
   font-family: 'Lato Medium';
@@ -597,6 +604,134 @@ header {
     top: 10px;
     right: 10px;
     cursor: pointer;
+  }
+}
+
+.event-wrapper {
+  border-bottom: 1px solid $gray;
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background-color: #fff;
+
+  .event-header {
+    .event-header__navigation {
+      display: flex;
+      margin-right: auto;
+
+      .event-btn {
+        padding: 10px 15px;
+        display: flex;
+        transition: $duration;
+        &:hover {
+          svg {
+            path {
+              transition: $duration;
+              stroke: $blue;
+            }
+          }
+        }
+        svg {
+          margin-left: 15px;
+        }
+      }
+
+      .event-header__dropdown {
+        &-society {
+          font-family: 'Lato Semibold';
+          font-size: 16px;
+          cursor: pointer;
+          color: $blue;
+          outline: none;
+          border: none;
+          margin-left: 46px;
+          padding: 0;
+        }
+        &-project {
+          font-family: 'Lato Semibold';
+          font-size: 16px;
+          cursor: pointer;
+          color: $blue;
+          outline: none;
+          border: none;
+          margin-left: 54px;
+          padding: 0;
+        }
+      }
+    }
+
+    .event-header__auth {
+      display: flex;
+
+      &-login {
+        font-size: 16px;
+        color: $blue;
+        font-family: 'Lato Semibold';
+        outline: none;
+        border: none;
+        background-color: inherit;
+        cursor: pointer;
+      }
+
+      &-registration {
+        margin-left: 16px;
+        font-size: 16px;
+        color: $blue;
+        border-radius: 3px;
+        font-family: 'Lato Semibold';
+        padding: 9px 10px;
+      }
+    }
+  }
+}
+
+.events-map {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+
+  .events-map-sidebar {
+    width: 50%;
+  }
+
+  .events-map-sidebar-options {
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $gray;
+
+    .events-map-sidebar__navigation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .variants {
+        font-size: 18px;
+        font-family: 'Lato Semibold';
+      }
+    }
+
+    .events-map-filtration {
+      padding: 3px 88px 3px 14px;
+      font-family: 'Lato Semibold';
+      text-align: left;
+      cursor: pointer;
+      border-color: #82949F;
+      background-color: inherit;
+      outline: none;
+      border-radius: 2px;
+    }
+
+    .events-toggler {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 33px;
+      &-text {
+        margin-left: 10px;
+        font-family: 'Lato Semibold';
+        font-size: 14px;
+      }
+    }
   }
 }
 
